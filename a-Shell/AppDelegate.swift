@@ -211,6 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         replaceCommand("pickFolder", "pickFolder", true)
         replaceCommand("config", "config", true)
         replaceCommand("keepDirectoryAfterShortcut", "keepDirectoryAfterShortcut", true)
+        replaceCommand("fm", "fm_main", true)  // Apple Foundation Models CLI
         replaceCommand("wasm", "wasm", true) // Apple's Wasm JIT interpreter. Faster than Wasm3 on CPU-intensive tasks, handles exceptions
         replaceCommand("jsc", "jsc_internal", false)  // use our own jsc instead of ios_system jsc. Keep the original version
         replaceCommand("call", "call", true)  // call a contact

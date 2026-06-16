@@ -972,7 +972,17 @@
 		6BD953702BFFCC6400C2508F /* ExecuteCommandIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD9536D2BFFCC6400C2508F /* ExecuteCommandIntentHandler.swift */; };
 		891608902713056B00CED1C9 /* KBWebViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916088E2713056900CED1C9 /* KBWebViewBase.m */; };
 		89483CE425CC48B2008EF012 /* ios_system.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228E13F225C95F2D0065D825 /* ios_system.xcframework */; };
-/* End PBXBuildFile section */
+		FM0002000000000000000001 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000001 /* Commands.swift */; };
+		FM0002000000000000000002 /* FMCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000002 /* FMCommand.swift */; };
+		FM0002000000000000000003 /* FoundationModelsExecution.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000003 /* FoundationModelsExecution.swift */; };
+		FM0002000000000000000004 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000004 /* Help.swift */; };
+		FM0002000000000000000005 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000005 /* Output.swift */; };
+		FM0002000000000000000007 /* AgentCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000007 /* AgentCommand.swift */; };
+		FM0002000000000000000008 /* AgentDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000008 /* AgentDisplay.swift */; };
+		FM0002000000000000000009 /* AgentFMTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM0001000000000000000009 /* AgentFMTools.swift */; };
+		FM000200000000000000000A /* AgentTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM000100000000000000000A /* AgentTools.swift */; };
+		FM000200000000000000000C /* Interrupt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FM000100000000000000000C /* Interrupt.swift */; };
+		/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		22178F0A257BBBA6008EB2B4 /* PBXContainerItemProxy */ = {
@@ -2718,7 +2728,17 @@
 		8916088D2713056800CED1C9 /* a-Shell-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "a-Shell-Bridging-Header.h"; sourceTree = "<group>"; };
 		8916088E2713056900CED1C9 /* KBWebViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBWebViewBase.m; sourceTree = "<group>"; };
 		8916088F2713056A00CED1C9 /* KBWebViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBWebViewBase.h; sourceTree = "<group>"; };
-/* End PBXFileReference section */
+		FM0001000000000000000001 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
+		FM0001000000000000000002 /* FMCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FMCommand.swift; sourceTree = "<group>"; };
+		FM0001000000000000000003 /* FoundationModelsExecution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationModelsExecution.swift; sourceTree = "<group>"; };
+		FM0001000000000000000004 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
+		FM0001000000000000000005 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		FM0001000000000000000007 /* AgentCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentCommand.swift; sourceTree = "<group>"; };
+		FM0001000000000000000008 /* AgentDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentDisplay.swift; sourceTree = "<group>"; };
+		FM0001000000000000000009 /* AgentFMTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentFMTools.swift; sourceTree = "<group>"; };
+		FM000100000000000000000A /* AgentTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentTools.swift; sourceTree = "<group>"; };
+		FM000100000000000000000C /* Interrupt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interrupt.swift; sourceTree = "<group>"; };
+		/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		22178EF5257BBBA4008EB2B4 /* Frameworks */ = {
@@ -2883,6 +2903,7 @@
 				22B1B83322CBC53700F7C452 /* a-Shell.entitlements */,
 				22984EED22C93DBC00069497 /* AppDelegate.swift */,
 				22D23117231940B2005B0C12 /* ExtraCommands.swift */,
+				FM0003000000000000000001 /* fm_cmd */,
 				22984EEF22C93DBC00069497 /* SceneDelegate.swift */,
 				22984EF122C93DBC00069497 /* ContentView.swift */,
 				22FB8FBF2E9BC2D500FDF274 /* extensionPoint.swift */,
@@ -3808,7 +3829,25 @@
 			name = Perl;
 			sourceTree = "<group>";
 		};
-/* End PBXGroup section */
+
+		FM0003000000000000000001 /* fm_cmd */ = {
+			isa = PBXGroup;
+			children = (
+				FM0001000000000000000001 /* Commands.swift */,
+				FM0001000000000000000002 /* FMCommand.swift */,
+				FM0001000000000000000003 /* FoundationModelsExecution.swift */,
+				FM0001000000000000000004 /* Help.swift */,
+				FM0001000000000000000005 /* Output.swift */,
+				FM0001000000000000000007 /* AgentCommand.swift */,
+				FM0001000000000000000008 /* AgentDisplay.swift */,
+				FM0001000000000000000009 /* AgentFMTools.swift */,
+				FM000100000000000000000A /* AgentTools.swift */,
+				FM000100000000000000000C /* Interrupt.swift */,
+			);
+			path = fm_cmd;
+			sourceTree = "<group>";
+		};
+		/* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
 		22178EF7257BBBA4008EB2B4 /* a-Shell-mini-Intents */ = {
@@ -4233,7 +4272,17 @@
 				891608902713056B00CED1C9 /* KBWebViewBase.m in Sources */,
 				2208ACC922D24703003985D6 /* WkWebViewExtension.swift in Sources */,
 				22C4A02D22E09D9D00E0FAD2 /* URL+isDirectory.swift in Sources */,
-			);
+							FM0002000000000000000001 /* Commands.swift in Sources */,
+				FM0002000000000000000002 /* FMCommand.swift in Sources */,
+				FM0002000000000000000003 /* FoundationModelsExecution.swift in Sources */,
+				FM0002000000000000000004 /* Help.swift in Sources */,
+				FM0002000000000000000005 /* Output.swift in Sources */,
+				FM0002000000000000000007 /* AgentCommand.swift in Sources */,
+				FM0002000000000000000008 /* AgentDisplay.swift in Sources */,
+				FM0002000000000000000009 /* AgentFMTools.swift in Sources */,
+				FM000200000000000000000A /* AgentTools.swift in Sources */,
+				FM000200000000000000000C /* Interrupt.swift in Sources */,
+);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		229D2476257931E4004A78AC /* Sources */ = {
