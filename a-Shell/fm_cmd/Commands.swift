@@ -151,6 +151,10 @@ enum ChatCommand {
                     fputs("Error: '--model' requires a value.\n", error)
                     return 64
                 }
+                guard val == "system" || val == "pcc" else {
+                    fputs("Error: Unknown model '\(val)'. Valid models: system, pcc.\n", error)
+                    return 64
+                }
                 opts.model = val
             case "-i", "--instructions":
                 guard let val = parser.next() else {
@@ -255,6 +259,10 @@ enum AvailableCommand {
             case "-m", "--model":
                 guard let val = parser.next() else {
                     fputs("Error: '--model' requires a value.\n", error)
+                    return 64
+                }
+                guard val == "system" || val == "pcc" else {
+                    fputs("Error: Unknown model '\(val)'. Valid models: system, pcc.\n", error)
                     return 64
                 }
                 opts.model = val

@@ -55,9 +55,17 @@ struct AgentToolRunner {
         }
         let lines = content.components(separatedBy: "\n")
         let total = lines.count
+        if total == 0 { return "(empty file)" }
 
         let start = (args["start_line"] as? Int).map { max(1, $0) } ?? 1
         let end   = (args["end_line"]   as? Int).map { min(total, $0) } ?? total
+
+        guard start <= total else {
+            return "Error: start_line (\(start)) is beyond the end of the file (\(total) lines)"
+        }
+        guard start <= end else {
+            return "Error: start_line (\(start)) is after end_line (\(end))"
+        }
 
         let selected = lines[(start-1)..<end]
         var result = ""

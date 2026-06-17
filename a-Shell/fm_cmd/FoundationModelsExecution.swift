@@ -306,7 +306,7 @@ private func _tokenCount(
         defer { sem.signal() }
         do {
             let model = SystemLanguageModel()
-            let allText = ([opts.prompt ?? ""] + opts.texts)
+            let allText = ([opts.instructions ?? "", opts.prompt ?? ""] + opts.texts)
                 .filter { !$0.isEmpty }.joined(separator: "\n")
 
             let count: Int
@@ -364,8 +364,8 @@ private func _available(
 
 // MARK: - Shared helpers
 
-/// Build a `LanguageModelSession` using concrete model types to stay at iOS 26+
-/// for the system model path and iOS 27+ for PCC.
+/// Build a `LanguageModelSession` using the concrete model type for the
+/// requested model (on-device `system` or Private Cloud Compute `pcc`).
 @available(iOS 27.0, macOS 27.0, *)
 private func _makeSession(model: String, instructions: String) -> LanguageModelSession {
     if model == "pcc" {

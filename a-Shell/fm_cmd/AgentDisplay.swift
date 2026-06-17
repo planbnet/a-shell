@@ -47,7 +47,13 @@ final class AgentDisplay {
         q.async { [weak self] in
             guard let self else { return }
             self._clearSpin()
-            self.spinMsg   = message
+            self.spinMsg = message
+            // Without a terminal we can't animate in place; print one status
+            // line and skip the repeating timer (otherwise it spams output).
+            guard self.isTTY else {
+                fputs("\(message)…\n", self.out); fflush(self.out)
+                return
+            }
             self.spinStart = Date()
             self.spinIdx   = 0
             let t = DispatchSource.makeTimerSource(queue: self.q)
@@ -70,14 +76,11 @@ final class AgentDisplay {
     }
 
     private func _drawSpin() {
+        // Only scheduled for TTY output (see spin()).
         let elapsed = Date().timeIntervalSince(spinStart)
         let frame   = Self.spinFrames[spinIdx % Self.spinFrames.count]
         spinIdx += 1
-        if isTTY {
-            fputs("\r\u{1B}[K\u{1B}[2m \(frame) \(spinMsg) (\(String(format: "%.1f", elapsed))s)\u{1B}[0m", out)
-        } else {
-            fputs("\(spinMsg)…\n", out)
-        }
+        fputs("\r\u{1B}[K\u{1B}[2m \(frame) \(spinMsg) (\(String(format: "%.1f", elapsed))s)\u{1B}[0m", out)
         fflush(out)
     }
 
