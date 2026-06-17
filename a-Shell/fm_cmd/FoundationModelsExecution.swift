@@ -1,4 +1,5 @@
 import Foundation
+import ImageIO
 
 #if canImport(FoundationModels)
 @_weakLinked import FoundationModels
@@ -384,8 +385,15 @@ private func _makeSession(model: String, instructions: String) -> LanguageModelS
     }
 }
 
-/// Build a multimodal `Prompt` from text + file paths.
-/// Uses `Attachment(imageURL:)` — no UIKit/AppKit dependency.
+/// Build a multimodal `Prompt` from text + image file paths.
+///
+/// The image is decoded into a `CGImage` in-process (via ImageIO) and passed as
+/// `Attachment(cgImage:)` rather than `Attachment(imageURL:)`. The URL-based
+/// initializer defers loading until the model processes the prompt, which under
+/// ios_system's threading can stall the request indefinitely (and the stall
+/// happens before any cancellation checkpoint, so Ctrl-C can't interrupt it).
+/// Decoding up front fails fast on a bad/unsupported image and avoids that.
+/// Uses only ImageIO/CoreGraphics — no UIKit/AppKit dependency.
 @available(iOS 27.0, macOS 27.0, *)
 private func _buildMultimodalPrompt(
     text:       String,
@@ -399,7 +407,16 @@ private func _buildMultimodalPrompt(
             fputs("fm: image file not found: \(path)\n", errFile)
             return nil
         }
-        attachments.append(Attachment(imageURL: url).label("image_\(i)"))
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+            fputs("fm: cannot decode image: \(path)\n", errFile)
+            return nil
+        }
+        // Preserve EXIF orientation if present.
+        let props = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+        let orientation = (props?[kCGImagePropertyOrientation] as? UInt32)
+            .flatMap { CGImagePropertyOrientation(rawValue: $0) }
+        attachments.append(Attachment(cgImage, orientation: orientation).label("image_\(i)"))
     }
 
     return Prompt {
